@@ -16,6 +16,218 @@
     
     <style>
         /* ============================================
+           READING PROGRESS BAR
+           ============================================ */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #2D5A3D, #4A8B5C);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        /* ============================================
+           SITE HEADER (Editorial feel)
+           ============================================ */
+        .site-header {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E5E5E5;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #2C2C2C;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #5A5A5A;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #2D5A3D;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+        }
+
+        /* ============================================
+           CATEGORY TAG
+           ============================================ */
+        .category-tag {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #2D5A3D;
+            background: rgba(45, 90, 61, 0.08);
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* ============================================
+           AUTHOR INFO
+           ============================================ */
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 32px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2D5A3D, #4A8B5C);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .author-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2C2C2C;
+            margin-bottom: 2px;
+        }
+
+        .article-meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #888888;
+        }
+
+        /* ============================================
+           IMAGE CAPTIONS
+           ============================================ */
+        .image-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #888888;
+            text-align: center;
+            font-style: italic;
+            margin-top: 12px;
+        }
+
+        /* ============================================
+           SECTION DIVIDER
+           ============================================ */
+        .section-divider {
+            text-align: center;
+            margin: 0;
+            padding: 48px 0;
+            color: #CCCCCC;
+            font-size: 18px;
+            letter-spacing: 8px;
+            background: var(--bg-warm-white);
+        }
+
+        /* ============================================
+           DROP CAP (first paragraph of content)
+           ============================================ */
+        .drop-cap::first-letter {
+            font-size: 3.5em;
+            line-height: 1;
+            float: left;
+            margin: 0 8px 0 0;
+            color: #2D5A3D;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           FADE-IN ANIMATION
+           ============================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           STRUCTURED DISCLAIMER
+           ============================================ */
+        .disclaimer-block {
+            background: #F9F9F7;
+            border: 1px solid #E5E5E5;
+            border-radius: 8px;
+            padding: 32px;
+            margin: 48px 0 0;
+        }
+
+        .disclaimer-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888888;
+            margin-bottom: 16px;
+        }
+
+        .disclaimer-block p {
+            font-size: 14px;
+            color: #888888;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .disclaimer-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ============================================
            CSS VARIABLES (per TSD)
            ============================================ */
         :root {
@@ -729,6 +941,26 @@
 </head>
 <body>
 
+    <!-- Reading Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- ==========================================
+         SITE HEADER (Editorial feel)
+         ========================================== -->
+    <header class="site-header">
+        <div class="header-content">
+            <a href="#" class="site-logo">Wellness Stories</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">Stories</a></li>
+                    <li><a href="#">Nutrition</a></li>
+                    <li><a href="#">Routines</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <!-- ==========================================
          BLOCK 0: DISCLOSURE (per TSD)
          ========================================== -->
@@ -752,8 +984,20 @@
         </div>
 
         <div class="container">
+            <!-- Category Tag -->
+            <span class="category-tag">Personal Story</span>
+
             <h1>I wasn't looking for the perfect food. I was just tired of fearing a normal dinner.</h1>
             <p class="lead">My relationship with food could be summed up in one word: negotiation. Not the casual kind — the high-stakes kind. Every meal felt like defusing a bomb.</p>
+
+            <!-- Author Info -->
+            <div class="author-info">
+                <div class="author-avatar">M</div>
+                <div>
+                    <div class="author-name">Michael R.</div>
+                    <div class="article-meta">January 2026 · 8 min read</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -765,7 +1009,7 @@
         <div class="container">
             <h2>The scene I never showed anyone</h2>
             
-            <p>Late evening. Kitchen. A perfectly ordinary situation: hungry, tired, just wanting to eat something and call it a day.</p>
+            <p class="drop-cap">Late evening. Kitchen. A perfectly ordinary situation: hungry, tired, just wanting to eat something and call it a day.</p>
             
             <p>I open the fridge and stare at the shelves like they're not food — they're a set of unpredictable decisions. Something's "okay," something's "off-limits," something's "probably fine, but not today."</p>
             
@@ -821,11 +1065,14 @@
         </div>
     </section>
 
+    <!-- ACT 1 → ACT 2 Divider -->
+    <div class="section-divider">• • •</div>
+
     <!-- ==========================================
          BLOCK 5: TRIED-ENOUGH WALL
          Beat 5 | ACT 2: CONFRONTATION
          ========================================== -->
-    <section class="section-warm">
+    <section class="section-warm fade-in">
         <div class="container">
             <h2 class="text-center">The turning point wasn't "another system"</h2>
             
@@ -857,7 +1104,7 @@
          BLOCK 7: LATERAL DISCOVERY
          Beat 7 | ACT 2: CONFRONTATION
          ========================================== -->
-    <section class="section-warm">
+    <section class="section-warm fade-in">
         <div class="container">
             <h2>A hint from the side</h2>
             
@@ -891,7 +1138,7 @@
          BLOCK 9: PHYSICS AS TRUST (Unboxing)
          Beat 9 | ACT 2: CONFRONTATION
          ========================================== -->
-    <section class="section-white">
+    <section class="section-white fade-in">
         <div class="container">
             <h2 class="text-center">The cold box</h2>
             
@@ -908,6 +1155,7 @@
                     <span class="specs">1120×840px · Product photography</span>
                 </div>
             </div>
+            <p class="image-caption">The thermobox arrived cold — real food, real care</p>
             
             <p>When the courier brought the box, I was surprised. It was serious thermal packaging. Inside — cold. The sachets were frozen solid.</p>
             
@@ -1003,11 +1251,14 @@
         </div>
     </section>
 
+    <!-- ACT 2 → ACT 3 Divider -->
+    <div class="section-divider">• • •</div>
+
     <!-- ==========================================
          BLOCK 13: NEW NORMAL (Return-to-Social)
          Beat 13 | ACT 3: RESOLUTION
          ========================================== -->
-    <section class="section-warm">
+    <section class="section-warm fade-in">
         <div class="container">
             <h2>What actually changed</h2>
             
@@ -1058,6 +1309,18 @@
         </div>
     </section>
 
+    <!-- Structured Disclaimer -->
+    <div style="background: var(--bg-warm-white); padding: 0 0 48px;">
+        <div class="container">
+            <div class="disclaimer-block">
+                <div class="disclaimer-title">Important Disclosure</div>
+                <p><strong>Personal Experience:</strong> This article reflects a personal story. Individual experiences may vary. Greespi is functional food, not a medical product.</p>
+                <p><strong>Sponsored Content:</strong> This is a sponsored advertorial.</p>
+                <p><strong>Not Medical Advice:</strong> Consult your healthcare provider before making changes to your diet, especially if you have a medical condition.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- ==========================================
          BLOCK 16: FOOTER / TRUST STRIP
          ========================================== -->
@@ -1105,23 +1368,39 @@
          ========================================== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Scroll depth tracking
-            var scrollDepths = [25, 50, 75, 100];
-            var trackedDepths = [];
+            // === READING PROGRESS BAR ===
+            var progressBar = document.getElementById('progressBar');
             
             window.addEventListener('scroll', function() {
-                var scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                var scrollTop = window.scrollY;
+                var docHeight = document.body.scrollHeight - window.innerHeight;
+                var scrollPercent = Math.round((scrollTop / docHeight) * 100);
+                progressBar.style.width = scrollPercent + '%';
                 
-                scrollDepths.forEach(function(depth) {
-                    if (scrollPercent >= depth && trackedDepths.indexOf(depth) === -1) {
-                        trackedDepths.push(depth);
+                // Scroll depth tracking
+                [25, 50, 75, 100].forEach(function(depth) {
+                    if (scrollPercent >= depth && !progressBar.dataset['d' + depth]) {
+                        progressBar.dataset['d' + depth] = '1';
                         console.log('📊 Scroll depth:', depth + '%');
                         // gtag('event', 'scroll_depth', { depth_percent: depth, page_name: 'advertorial_ph1_s1p1' });
                     }
                 });
             });
+
+            // === FADE-IN ON SCROLL ===
+            var faders = document.querySelectorAll('.fade-in');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+
+            faders.forEach(function(el) { observer.observe(el); });
             
-            // CTA click tracking
+            // === CTA CLICK TRACKING ===
             var ctaButton = document.querySelector('.cta-button');
             if (ctaButton) {
                 ctaButton.addEventListener('click', function() {
@@ -1130,7 +1409,7 @@
                 });
             }
             
-            // Read time tracking
+            // === READ TIME TRACKING ===
             var startTime = Date.now();
             window.addEventListener('beforeunload', function() {
                 var timeSpent = Math.round((Date.now() - startTime) / 1000);
