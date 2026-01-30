@@ -16,10 +16,9 @@
     
     <style>
         /* ============================================
-           CSS VARIABLES (per spec)
+           CSS VARIABLES (per TSD)
            ============================================ */
         :root {
-            /* Colors */
             --bg-warm-white: #FAFAF8;
             --bg-white: #FFFFFF;
             --bg-light-sage: #F5F7F4;
@@ -30,12 +29,8 @@
             --accent-green-hover: #234A31;
             --divider: #E5E5E5;
             --dark-bg: #2C2C2C;
-            
-            /* Typography */
             --font-heading: 'Playfair Display', Georgia, serif;
             --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            
-            /* Layout */
             --content-max-width: 760px;
             --section-padding: 64px;
         }
@@ -86,18 +81,16 @@
                 font-size: 16px;
                 line-height: 1.75;
             }
-            
             section {
                 padding: 48px 0;
             }
-            
             .container {
                 padding: 0 20px;
             }
         }
 
         /* ============================================
-           TYPOGRAPHY (per spec)
+           TYPOGRAPHY (per TSD)
            ============================================ */
         h1 {
             font-family: var(--font-heading);
@@ -130,7 +123,6 @@
                 font-size: 28px;
                 line-height: 1.29;
             }
-            
             h2 {
                 font-size: 20px;
                 line-height: 1.4;
@@ -138,7 +130,9 @@
         }
 
         /* ============================================
-           BLOCK 0: DISCLOSURE (per spec)
+           BLOCK 0: DISCLOSURE (per TSD)
+           Font: Inter, 13px, Italic
+           Color: #888888, Center, mb 24px
            ============================================ */
         .disclosure {
             text-align: center;
@@ -154,12 +148,38 @@
         }
 
         /* ============================================
-           BLOCK 1: HERO / SOCIAL HOOK (per spec)
+           BLOCK 1: HERO (per TSD)
+           Padding top: 80px desktop / 48px mobile
+           Padding bottom: 48px
            ============================================ */
         .hero {
             background: var(--bg-warm-white);
-            padding: 80px 0 48px;
+            padding: 0 0 48px;
             text-align: center;
+        }
+
+        .hero-visual {
+            width: 100%;
+            aspect-ratio: 21/9;
+            background: linear-gradient(135deg, #E8EBE6 0%, #D4D9D1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 48px;
+            overflow: hidden;
+        }
+
+        .hero-visual .label {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .hero-visual .specs {
+            font-size: 12px;
+            opacity: 0.6;
         }
 
         .hero h1 {
@@ -177,9 +197,12 @@
 
         @media (max-width: 768px) {
             .hero {
-                padding: 48px 0 32px;
+                padding: 0 0 32px;
             }
-            
+            .hero-visual {
+                aspect-ratio: 16/9;
+                margin-bottom: 32px;
+            }
             .hero .lead {
                 font-size: 18px;
             }
@@ -202,7 +225,12 @@
         }
 
         /* ============================================
-           QUOTE BLOCKS (per spec)
+           QUOTE BLOCKS (per TSD)
+           Background: #F5F7F4
+           Padding: 32px
+           Border-left: 4px solid #2D5A3D
+           Border-radius: 0 8px 8px 0
+           Font: Inter 18px/1.667 italic
            ============================================ */
         .quote-block {
             background: var(--bg-light-sage);
@@ -223,38 +251,75 @@
             margin-top: 16px;
         }
 
-        .quote-large {
-            background: var(--bg-light-sage);
-            padding: 40px;
-            border-radius: 12px;
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .quote-large p {
-            font-family: var(--font-heading);
-            font-size: 22px;
-            line-height: 1.45;
-            color: var(--accent-green);
-            margin: 0;
-        }
-
         @media (max-width: 768px) {
             .quote-block {
                 padding: 24px;
             }
-            
-            .quote-large {
-                padding: 32px 24px;
+        }
+
+        /* ============================================
+           BLOCK 4: EMOTIONAL CLIMAX QUOTE (per TSD)
+           Background: #F5F7F4
+           Padding: 32px 40px
+           Border-left: 4px solid #2D5A3D
+           Border-radius: 0 8px 8px 0
+           Font: Inter, 20px / 32px lh, weight 500
+           ============================================ */
+        .quote-climax {
+            background: var(--bg-light-sage);
+            padding: 32px 40px;
+            border-left: 4px solid var(--accent-green);
+            border-radius: 0 8px 8px 0;
+            margin: 32px 0;
+        }
+
+        .quote-climax p {
+            font-size: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .quote-climax p + p {
+            margin-top: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .quote-climax {
+                padding: 24px;
             }
-            
-            .quote-large p {
-                font-size: 19px;
+            .quote-climax p {
+                font-size: 18px;
             }
         }
 
         /* ============================================
-           KEY STATEMENT
+           BLOCK 9: CENTERED QUOTE (per TSD)
+           Background: #FFFFFF
+           Padding: 24px 32px
+           Border: 1px solid #2D5A3D
+           Border-radius: 8px
+           Text-align: center
+           Font: Inter 18px/28px, weight 500
+           ============================================ */
+        .quote-centered {
+            background: var(--bg-white);
+            padding: 24px 32px;
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .quote-centered p {
+            font-size: 18px;
+            line-height: 1.556;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        /* ============================================
+           KEY STATEMENT (per TSD)
            ============================================ */
         .key-statement {
             font-family: var(--font-heading);
@@ -267,7 +332,10 @@
         }
 
         /* ============================================
-           FEATURE LIST
+           FEATURE LIST (per TSD)
+           Custom bullet: 8px, #2D5A3D
+           Item spacing: 16px
+           Padding-left: 24px
            ============================================ */
         .feature-list {
             list-style: none;
@@ -277,7 +345,7 @@
 
         .feature-list li {
             position: relative;
-            padding-left: 28px;
+            padding-left: 24px;
             margin-bottom: 16px;
             font-size: 18px;
         }
@@ -291,20 +359,26 @@
             position: absolute;
             left: 0;
             top: 10px;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: var(--accent-green);
             border-radius: 50%;
         }
 
         /* ============================================
-           DIALOGUE BOX (Block 7)
+           DIALOGUE BOX (per TSD Block 7)
+           Background: #FFFFFF
+           Border: 1px solid #E5E5E5
+           Border-radius: 12px
+           Padding: 24px 32px
+           Box-shadow: 0 2px 8px rgba(0,0,0,0.04)
+           Font: Inter, 18px/1.667, Normal
            ============================================ */
         .dialogue-box {
             background: var(--bg-white);
             border: 1px solid var(--divider);
             border-radius: 12px;
-            padding: 32px;
+            padding: 24px 32px;
             margin: 32px 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
@@ -312,7 +386,6 @@
         .dialogue-box p {
             font-size: 18px;
             line-height: 1.667;
-            font-style: italic;
             margin: 0;
         }
 
@@ -358,59 +431,89 @@
         }
 
         /* ============================================
-           BLOCK 9: UNBOXING
+           BLOCK 3: SHRINKING ILLUSTRATION (per TSD)
+           Max-width: 400px, centered
+           Margin: 40px auto
+           ============================================ */
+        .shrinking-visual {
+            max-width: 400px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .shrinking-visual svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* ============================================
+           BLOCK 9: UNBOXING IMAGE (per TSD)
+           Max-width: 560px, centered
+           Aspect-ratio: 4/3
+           Border-radius: 12px
+           Box-shadow: 0 4px 16px rgba(0,0,0,0.08)
            ============================================ */
         .unboxing-image {
-            max-width: 100%;
-            margin: 0 auto 32px;
+            max-width: 560px;
+            margin: 0 auto 40px;
         }
 
         .unboxing-image .image-placeholder {
             aspect-ratio: 4/3;
             margin: 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
         }
 
         /* ============================================
-           BLOCK 10: RITUAL STEPS
+           BLOCK 10: RITUAL STEPS (per TSD)
+           Background: #F5F7F4
+           Border-radius: 12px
+           Padding: 32px
+           Step: flex row, gap 16px
+           Icon: 32x32 #2D5A3D
            ============================================ */
         .ritual-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin: 40px 0;
+            background: var(--bg-light-sage);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
         }
 
         .ritual-step {
             display: flex;
             align-items: center;
-            gap: 20px;
-            background: var(--bg-white);
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
-        .step-number {
-            width: 44px;
-            height: 44px;
-            background: var(--accent-green);
-            color: #FFFFFF;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 18px;
+        .ritual-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-icon {
+            width: 32px;
+            height: 32px;
             flex-shrink: 0;
+            color: var(--accent-green);
+        }
+
+        .step-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--accent-green);
         }
 
         .step-text {
-            font-size: 17px;
-            line-height: 1.5;
+            font-size: 18px;
+            line-height: 1.556;
         }
 
         /* ============================================
-           BLOCK 11: GREEN SECTION (Silence)
+           BLOCK 11: GREEN SECTION (per TSD)
+           Background: #2D5A3D
+           Padding: 80px 0
+           H2: 32px / 40px lh, #FFFFFF, center
+           Body: rgba(255,255,255,0.9), max-width 600px
            ============================================ */
         .green-section {
             background: var(--accent-green);
@@ -422,22 +525,31 @@
         .green-section h2 {
             color: #FFFFFF;
             font-size: 32px;
+            line-height: 1.25;
             margin-bottom: 32px;
         }
 
         .green-section p {
             color: rgba(255, 255, 255, 0.9);
-            max-width: 560px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
+        /* Hero Quote (per TSD Block 11)
+           Background: rgba(255,255,255,0.1)
+           Border: 2px solid rgba(255,255,255,0.3)
+           Border-radius: 12px
+           Padding: 40px
+           Max-width: 520px
+           Font: Playfair Display 24px/34px, weight 500
+         */
         .green-quote {
             background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
             padding: 40px;
-            margin-top: 40px;
+            margin-top: 48px;
             max-width: 520px;
             margin-left: auto;
             margin-right: auto;
@@ -447,6 +559,7 @@
             font-family: var(--font-heading);
             font-size: 24px;
             line-height: 1.42;
+            font-weight: 500;
             color: #FFFFFF;
             margin: 0;
         }
@@ -460,33 +573,38 @@
             .green-section {
                 padding: 56px 0;
             }
-            
             .green-section h2 {
                 font-size: 26px;
             }
-            
             .green-quote {
                 padding: 28px;
             }
-            
             .green-quote p {
                 font-size: 20px;
             }
-            
             .green-quote p + p {
                 font-size: 17px;
             }
         }
 
         /* ============================================
-           BLOCK 14: REFRAME (Emphasis box)
+           BLOCK 14: EMPHASIS BOX (per TSD)
+           Background: #FFFFFF
+           Border: 2px solid #2D5A3D
+           Border-radius: 12px
+           Padding: 32px 40px
+           Max-width: 540px, center
+           Font: Inter 20px/30px, weight 500
            ============================================ */
         .emphasis-box {
             background: var(--bg-white);
             border: 2px solid var(--accent-green);
             border-radius: 12px;
-            padding: 40px;
+            padding: 32px 40px;
             margin-top: 32px;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
             text-align: center;
         }
 
@@ -502,7 +620,7 @@
         }
 
         /* ============================================
-           BLOCK 15: CTA
+           BLOCK 15: CTA (per TSD)
            ============================================ */
         .cta-section {
             background: var(--bg-white);
@@ -512,6 +630,7 @@
 
         .cta-phrase {
             font-size: 20px;
+            line-height: 1.4;
             font-weight: 600;
             color: var(--accent-green);
             margin: 32px 0;
@@ -548,7 +667,9 @@
         }
 
         /* ============================================
-           BLOCK 16: FOOTER
+           BLOCK 16: FOOTER (per TSD)
+           Background: #2C2C2C
+           Padding: 48px 0
            ============================================ */
         .footer {
             background: var(--dark-bg);
@@ -604,22 +725,16 @@
         .text-center {
             text-align: center;
         }
-
-        .closing-text {
-            text-align: center;
-            font-weight: 500;
-            margin-top: 32px;
-        }
     </style>
 </head>
 <body>
 
     <!-- ==========================================
-         BLOCK 0: DISCLOSURE (per spec)
+         BLOCK 0: DISCLOSURE (per TSD)
          ========================================== -->
     <div class="disclosure">
         <div class="container">
-            <p>*(Personal experience. Not medical advice)*</p>
+            <p>Personal experience. Not medical advice.</p>
         </div>
     </div>
 
@@ -628,6 +743,14 @@
          Beat 1 | ACT 1: SETUP
          ========================================== -->
     <section class="hero">
+        <!-- Hero visual: match with TOF ad creative hooks
+             "When digestion feels fragile" / "Reset season" -->
+        <div class="hero-visual">
+            <span class="label">HERO IMAGE</span>
+            <span>Atmospheric kitchen / table scene — warm, quiet, relatable</span>
+            <span class="specs">1520×650px · Lifestyle photography · Match TOF creative hooks</span>
+        </div>
+
         <div class="container">
             <h1>I wasn't looking for the perfect food. I was just tired of fearing a normal dinner.</h1>
             <p class="lead">My relationship with food could be summed up in one word: negotiation. Not the casual kind — the high-stakes kind. Every meal felt like defusing a bomb.</p>
@@ -663,6 +786,21 @@
             <p>At first it seemed rational. I cut out what obviously didn't agree with me. Then a bit more. Then "just to be safe" — a bit more.</p>
             
             <p>And somewhere in the middle of that process, I noticed: the list of safe foods in my head was shrinking faster than a normal life should ever shrink.</p>
+
+            <!-- Optional illustration (per TSD): three shrinking circles -->
+            <div class="shrinking-visual">
+                <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="80" cy="100" r="70" fill="none" stroke="#2D5A3D" stroke-width="2" opacity="0.3"/>
+                    <text x="80" y="100" text-anchor="middle" dominant-baseline="middle" font-family="Inter, sans-serif" font-size="11" fill="#5A5A5A">My diet</text>
+                    <circle cx="200" cy="100" r="45" fill="none" stroke="#2D5A3D" stroke-width="2" opacity="0.5"/>
+                    <text x="200" y="100" text-anchor="middle" dominant-baseline="middle" font-family="Inter, sans-serif" font-size="11" fill="#5A5A5A">Safe foods</text>
+                    <circle cx="320" cy="100" r="25" fill="none" stroke="#2D5A3D" stroke-width="2" opacity="0.8"/>
+                    <text x="320" y="100" text-anchor="middle" dominant-baseline="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A5A5A">A few options</text>
+                    <!-- Arrows -->
+                    <path d="M155 100 L150 95 M155 100 L150 105 M135 100 L155 100" stroke="#CCCCCC" stroke-width="1.5" fill="none"/>
+                    <path d="M275 100 L270 95 M275 100 L270 105 M255 100 L275 100" stroke="#CCCCCC" stroke-width="1.5" fill="none"/>
+                </svg>
+            </div>
         </div>
     </section>
 
@@ -676,11 +814,10 @@
             
             <p>Friends would invite me to dinner, and I'd make excuses. Not because I didn't want to go. But because I didn't want to spend the whole meal scanning for the nearest exit.</p>
             
-            <div class="quote-large">
+            <div class="quote-climax">
                 <p>The worst part wasn't the discomfort. The worst part was that food had started running my day, my plans, my decisions.</p>
+                <p>And you get tired. Deeply tired.</p>
             </div>
-            
-            <p class="closing-text">And you get tired. Deeply tired.</p>
         </div>
     </section>
 
@@ -688,15 +825,13 @@
          BLOCK 5: TRIED-ENOUGH WALL
          Beat 5 | ACT 2: CONFRONTATION
          ========================================== -->
-    <section class="section-sage">
+    <section class="section-warm">
         <div class="container">
-            <h2 class="text-center">I tried. A lot.</h2>
+            <h2 class="text-center">The turning point wasn't "another system"</h2>
             
-            <p>Rules. Exceptions. Lists. Plans. I tried everything I could find.</p>
+            <p>I never had the moment of "I found the perfect approach." It was the opposite — I realized that one more set of rules would break me.</p>
             
-            <p>Some things helped for a week. Some for a month. Then it all started over again.</p>
-            
-            <p>Nothing gave me stability.</p>
+            <p>Rules. Exceptions. Lists. Plans. I tried everything I could find. But nothing gave me stability.</p>
         </div>
     </section>
 
@@ -706,10 +841,6 @@
          ========================================== -->
     <section class="section-white">
         <div class="container">
-            <h2 class="text-center">The turning point wasn't "another system"</h2>
-            
-            <p>I never had the moment of "I found the perfect approach." It was the opposite — I realized that one more set of rules would break me.</p>
-            
             <p class="key-statement">I didn't need more rules.<br>I needed an anchor with fewer variables.</p>
             
             <p>Something that:</p>
@@ -743,7 +874,7 @@
     </section>
 
     <!-- ==========================================
-         BLOCK 8: FIRST DOUBT
+         BLOCK 8: FIRST DOUBT + CURIOSITY
          Beat 8 | ACT 2: CONFRONTATION
          ========================================== -->
     <section class="section-sage">
@@ -764,7 +895,7 @@
         <div class="container">
             <h2 class="text-center">The cold box</h2>
             
-            <!-- IMAGE PLACEHOLDER: Greespi thermobox -->
+            <!-- Image: Greespi thermobox (per TSD) -->
             <div class="unboxing-image">
                 <div class="image-placeholder large">
                     <svg viewBox="0 0 24 24" stroke-width="1.5">
@@ -773,21 +904,22 @@
                         <path d="M21 15l-5-5L5 21"/>
                     </svg>
                     <span class="label">UNBOXING IMAGE</span>
-                    <span>Greespi thermobox with dry ice</span>
-                    <span class="specs">1120×840px • Product photography</span>
+                    <span>Greespi thermobox with cold delivery</span>
+                    <span class="specs">1120×840px · Product photography</span>
                 </div>
             </div>
             
             <p>When the courier brought the box, I was surprised. It was serious thermal packaging. Inside — cold. The sachets were frozen solid.</p>
             
-            <div class="quote-block">
+            <!-- Centered quote per TSD Block 9 -->
+            <div class="quote-centered">
                 <p>It felt like real food that someone had actually cared about — not another jar from a shelf.</p>
             </div>
         </div>
     </section>
 
     <!-- ==========================================
-         BLOCK 10: RITUAL
+         BLOCK 10: RITUAL (Habit UX)
          Beat 10 | ACT 2: CONFRONTATION
          ========================================== -->
     <section class="section-warm">
@@ -798,20 +930,32 @@
             
             <div class="ritual-steps">
                 <div class="ritual-step">
-                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L13 15v-2h2l4.66 4.66 1.41-1.42L17.83 13H22z" transform="translate(4,4) scale(0.75)"/>
+                        </svg>
+                    </div>
                     <div class="step-text">Take it out of the freezer</div>
                 </div>
                 <div class="ritual-step">
-                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 4C9.37 4 4 9.37 4 16s5.37 12 12 12 12-5.37 12-12S22.63 4 16 4zm0 22c-5.52 0-10-4.48-10-10S10.48 6 16 6s10 4.48 10 10-4.48 10-10 10zm1-10.41V10h-2v6.41l4.29 4.3 1.42-1.42z"/>
+                        </svg>
+                    </div>
                     <div class="step-text">A minute in warm water</div>
                 </div>
                 <div class="ritual-step">
-                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 20.5l-5.5-5.5-1.92 1.92L12 24.34l15.42-15.42L25.5 7z"/>
+                        </svg>
+                    </div>
                     <div class="step-text">Mix. Drink. Done.</div>
                 </div>
             </div>
             
-            <p class="closing-text">And the most important part: my body accepted it calmly.</p>
+            <p>And the most important part: my body accepted it calmly.</p>
         </div>
     </section>
 
@@ -860,7 +1004,7 @@
     </section>
 
     <!-- ==========================================
-         BLOCK 13: NEW NORMAL
+         BLOCK 13: NEW NORMAL (Return-to-Social)
          Beat 13 | ACT 3: RESOLUTION
          ========================================== -->
     <section class="section-warm">
@@ -916,13 +1060,13 @@
 
     <!-- ==========================================
          BLOCK 16: FOOTER / TRUST STRIP
-         Beat 16 | Closing
          ========================================== -->
     <footer class="footer">
         <div class="container">
             <div class="trust-row">
                 <div class="trust-item">
                     <div class="trust-icon">
+                        <!-- Snowflake: Cold delivery -->
                         <svg viewBox="0 0 24 24">
                             <path d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L13 15v-2h2l4.66 4.66 1.41-1.42L17.83 13H22z"/>
                         </svg>
@@ -931,6 +1075,7 @@
                 </div>
                 <div class="trust-item">
                     <div class="trust-icon">
+                        <!-- Leaf: Functional food -->
                         <svg viewBox="0 0 24 24">
                             <path d="M12 22c4.97 0 9-4.03 9-9-4.97 0-9 4.03-9 9zM5.6 10.25c0 1.38 1.12 2.5 2.5 2.5.53 0 1.01-.16 1.42-.44l-.02.19c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5l-.02-.19c.4.28.89.44 1.42.44 1.38 0 2.5-1.12 2.5-2.5 0-1-.59-1.85-1.43-2.25.84-.4 1.43-1.25 1.43-2.25 0-1.38-1.12-2.5-2.5-2.5-.53 0-1.01.16-1.42.44l.02-.19C14.5 2.12 13.38 1 12 1S9.5 2.12 9.5 3.5l.02.19c-.4-.28-.89-.44-1.42-.44-1.38 0-2.5 1.12-2.5 2.5 0 1 .59 1.85 1.43 2.25-.84.4-1.43 1.25-1.43 2.25zM12 5.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5S9.5 9.38 9.5 8s1.12-2.5 2.5-2.5zM3 13c0 4.97 4.03 9 9 9 0-4.97-4.03-9-9-9z"/>
                         </svg>
@@ -939,6 +1084,7 @@
                 </div>
                 <div class="trust-item">
                     <div class="trust-icon">
+                        <!-- Checkmark: No additives -->
                         <svg viewBox="0 0 24 24">
                             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                         </svg>
@@ -954,23 +1100,23 @@
     </footer>
 
     <!-- ==========================================
-         TRACKING SCRIPTS
+         TRACKING SCRIPTS (per TSD)
+         Events: page_view, scroll_depth, cta_click, read_time
          ========================================== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Scroll depth tracking
-            let scrollDepths = [25, 50, 75, 100];
-            let trackedDepths = [];
+            var scrollDepths = [25, 50, 75, 100];
+            var trackedDepths = [];
             
             window.addEventListener('scroll', function() {
-                let scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                var scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
                 
                 scrollDepths.forEach(function(depth) {
-                    if (scrollPercent >= depth && !trackedDepths.includes(depth)) {
+                    if (scrollPercent >= depth && trackedDepths.indexOf(depth) === -1) {
                         trackedDepths.push(depth);
                         console.log('📊 Scroll depth:', depth + '%');
-                        // TODO: Replace with actual tracking
-                        // gtag('event', 'scroll_depth', { depth_percent: depth, page: 'advertorial_ph1_s1p1' });
+                        // gtag('event', 'scroll_depth', { depth_percent: depth, page_name: 'advertorial_ph1_s1p1' });
                     }
                 });
             });
@@ -978,20 +1124,18 @@
             // CTA click tracking
             var ctaButton = document.querySelector('.cta-button');
             if (ctaButton) {
-                ctaButton.addEventListener('click', function(e) {
+                ctaButton.addEventListener('click', function() {
                     console.log('🎯 CTA clicked: View the Start Guide');
-                    // TODO: Replace with actual tracking
-                    // gtag('event', 'cta_click', { button_text: 'View the Start Guide', page: 'advertorial_ph1_s1p1' });
+                    // gtag('event', 'cta_click', { button_text: 'View the Start Guide', block_position: 15 });
                 });
             }
             
-            // Time on page tracking
-            let startTime = Date.now();
+            // Read time tracking
+            var startTime = Date.now();
             window.addEventListener('beforeunload', function() {
-                let timeSpent = Math.round((Date.now() - startTime) / 1000);
+                var timeSpent = Math.round((Date.now() - startTime) / 1000);
                 console.log('⏱️ Time on page:', timeSpent, 'seconds');
-                // TODO: Replace with actual tracking
-                // navigator.sendBeacon('/analytics', JSON.stringify({ event: 'time_on_page', seconds: timeSpent }));
+                // navigator.sendBeacon('/analytics', JSON.stringify({ event: 'read_time', seconds_on_page: timeSpent, page_name: 'advertorial_ph1_s1p1' }));
             });
         });
     </script>
