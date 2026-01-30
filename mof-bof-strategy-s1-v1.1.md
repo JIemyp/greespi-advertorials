@@ -340,6 +340,134 @@ OUTPUTS:
 
 ---
 
+## **1.13 MOF OWNED NURTURE (EMAIL) — Post-Capture, Pre-Purchase**
+
+**Навіщо:** Людина залишила email (Start Guide, quiz, lead magnet на Advertorial) — це сигнал переходу з TOF у MOF. Вона вже warm, але ще НЕ дійшла до ViewProof / ATC. Без owned nurture ми залежимо тільки від paid ретаргетингу, а email — безкоштовний і контрольований канал.
+
+**Аудиторія:** Email subscribers, які ще НЕ виконали ViewProof або InitiateCheckout.
+**Suppress:** ViewProof + ATC → переводити в BOF email (секція 2.12).
+
+### **1.13.1 Точки захоплення email (TOF → MOF)**
+
+| Точка | Де | Що отримує |
+|-------|----|-----------|
+| Start Guide opt-in | Advertorial CTA (footer/inline) | PDF або email-серія з ритуалом |
+| Quiz/Triage completion | On-page quiz або DM → email collect | Персоналізована рекомендація |
+| Exit-intent popup | Advertorial (desktop) | "Get the 1-step guide before you go" |
+
+**Правило:** кожна точка збирає email + `capture_source` параметр для сегментації.
+
+### **1.13.2 MOF Email Nurture серія (10 днів, 6 листів)**
+
+> Усі тексти: без діагнозів/симптомів, без "treat/cure/heal", без інференсу про стан людини. Тільки I-statements де цитуємо "голос" аудиторії. Compliance = Golden Standard v1.2.
+
+**ME0 — Welcome (0–1 година після підписки)**
+- **Subject (EN):** Your Gentle Start Guide is here
+- **Body:**
+  - "Thanks for grabbing the guide."
+  - 1-step ritual: one sachet, cold water, done.
+  - "Sip slower if you want it gentler."
+  - Link to Start Guide section on Advertorial.
+  - "Over the next few days, I’ll share what makes this different from everything else on the shelf."
+- **CTA:** "Read the Start Guide"
+- **Event:** `MOF_Email_Open`, `MOF_Email_Click`
+
+**ME1 — Proof (Day 2)**
+- **Subject (EN):** Why I lead with receipts, not claims
+- **Body:**
+  - "Most wellness brands say ‘trust us’. I wanted receipts."
+  - "Lab-tested. Certificate of Analysis. You can click it yourself."
+  - Brief explanation: що таке COA (1-2 речення, без мед-термінів).
+  - "If you check labels like I do — this will make sense."
+- **CTA:** "See the testing"
+- **Link:** Advertorial proof/COA section
+- **Event:** `MOF_Email_Click` → `ViewProof`
+
+**ME2 — Physics (Day 4)**
+- **Subject (EN):** Why frozen? (It’s not what you think)
+- **Body:**
+  - "When I first heard ‘frozen wellness product’, I was skeptical."
+  - "But frozen means: no fillers, no preservatives, no shelf-life tricks."
+  - "It’s food that stayed fresh. That’s it."
+  - "Arrives in a thermobox with dry ice. Goes straight to the freezer."
+- **CTA:** "See how it’s delivered"
+- **Link:** Advertorial delivery/physics section
+- **Event:** `MOF_Email_Click`
+
+**ME3 — Simplicity (Day 6)**
+- **Subject (EN):** The one-minute routine that actually stuck
+- **Body:**
+  - "I’ve tried complicated routines. Blenders, measuring, 12 supplements."
+  - "This is: freezer → sachet → cold water → done."
+  - "Under a minute. No cleanup. No decisions."
+  - "That’s why it stuck — not because it’s perfect, but because it’s simple enough to keep."
+- **CTA:** "Get the full ritual"
+- **Link:** Advertorial usage/protocol section
+- **Event:** `MOF_Email_Click` → `ViewProtocol`
+
+**ME4 — Social Proof (Day 8)**
+- **Subject (EN):** "I was careful too" — why I started
+- **Body:**
+  - "I’m not the type to jump into something new. I check everything."
+  - "What convinced me: the testing is public. The format is food. The routine is one step."
+  - "No promises. No transformation stories. Just: here’s the proof, decide for yourself."
+  - "That felt different."
+- **CTA:** "See what’s inside"
+- **Link:** Advertorial (top section / product overview)
+- **Event:** `MOF_Email_Click`
+
+**ME5 — Bridge to BOF (Day 10)**
+- **Subject (EN):** Ready to try? Here’s the simplest way to start
+- **Body:**
+  - "If you’ve been reading these — you’re doing your research. That’s smart."
+  - "When you’re ready: one box, one-time purchase, no subscription."
+  - "Cold-chain delivered. Lab-tested. One gentle portion a day."
+  - "No pressure. Just an option when you’re ready."
+- **CTA:** "See the options"
+- **Link:** Offer page (NOT Advertorial — це bridge в BOF)
+- **Event:** `MOF_Email_Click` → `BOF_Entry`
+
+### **1.13.3 Логіка переходу MOF → BOF email**
+
+```
+Subscriber enters MOF email nurture (ME0)
+  ↓
+During nurture, check events:
+  → ViewProof fired? → Tag "proof_seen", continue nurture
+  → InitiateCheckout / ATC fired? → STOP MOF emails → START BOF emails (2.12)
+  → Purchase? → STOP all → Retention/post-purchase flow
+  ↓
+ME5 sent (Day 10) without conversion?
+  → Move to BOF email pool (2.12 E0-E4)
+  → If still no action after BOF → Sunset (monthly digest or suppress)
+```
+
+### **1.13.4 Сегментація по capture_source**
+
+| Capture Source | Персоналізація |
+|---------------|---------------|
+| Start Guide opt-in | ME0 = guide delivery. Standard sequence. |
+| Quiz: barrier = safety | ME1 (Proof) отримує пріоритет — відправити раніше (Day 1 замість Day 2) |
+| Quiz: barrier = simplicity | ME3 (Simplicity) отримує пріоритет — відправити раніше (Day 1) |
+| Exit-intent | Коротший nurture: ME0 → ME1 → ME5 (3 листи за 5 днів, без повторів) |
+
+### **1.13.5 MOF Email вимірювання**
+
+| Подія | Тригер | Параметри |
+|-------|--------|-----------|
+| MOF_Email_Open | Email відкрито | email_id (ME0-ME5), capture_source |
+| MOF_Email_Click | Click у email | email_id, link_destination, capture_source |
+| MOF_to_BOF | ME5 відправлено або ATC/ViewProof під час nurture | trigger (natural / event-based) |
+| MOF_Email_Unsubscribe | Unsubscribe | email_id, days_in_nurture |
+
+### **1.13.6 Compliance нагадування (Email)**
+
+- **Unsubscribe link** обов’язковий у кожному листі (CAN-SPAM / GDPR).
+- **Sender:** бренд Greespi, не особисте ім’я (щоб не створювати false intimacy).
+- **Frequency cap:** максимум 1 email на 2 дні (не частіше).
+- **Ніяких health claims в subject lines.** Subject = curiosity/logistics/proof, не "fix your gut" або "feel better".
+- **Ніяких countdown / urgency** — "last chance" / "expires soon" заборонено.
+
 ---
 
 ## **2. BOF — BOTTOM OF FUNNEL**
